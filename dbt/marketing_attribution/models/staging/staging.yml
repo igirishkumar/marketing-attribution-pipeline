@@ -1,0 +1,108 @@
+version: 2
+
+models:
+
+  - name: stg_tracknow_checkouts
+    description: "Cleaned TrackNow conversion records."
+
+    columns:
+
+      - name: tracknow_order_id
+        description: "Unique TrackNow order ID."
+        tests:
+          - not_null
+          - unique
+
+      - name: firm_id
+        description: "Prop firm identifier."
+        tests:
+          - not_null
+
+      - name: status
+        description: "TrackNow conversion status."
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - active
+                  - refunded
+                  - denied
+
+      - name: referral_bonus
+        description: "Commission associated with the conversion."
+
+
+  - name: stg_posthog_sessions
+    description: "Cleaned PostHog session and marketing attribution data."
+
+    columns:
+
+      - name: session_id
+        description: "Unique PostHog session."
+        tests:
+          - not_null
+          - unique
+
+      - name: posthog_distinct_id
+        description: "Cookie-based anonymous PostHog user identifier."
+        tests:
+          - not_null
+
+      - name: session_date
+        description: "Date the session started."
+        tests:
+          - not_null
+
+  - name: stg_commission_daily
+    description: "Daily firm-level commission data supplied by Finance."
+
+    columns:
+
+      - name: commission_date
+        description: "Date of the commission record."
+        tests:
+          - not_null
+
+      - name: firm_id
+        description: "Firm identifier."
+        tests:
+          - not_null
+
+      - name: commission_amount
+        description: "Actual commission amount in GBP; source of truth."
+        tests:
+          - not_null
+
+      - name: sales_amount
+        description: "Total sales value attributed to the affiliate channel for the firm/date."
+
+  - name: stg_attribution_events
+    description: >
+      Proposed first-party attribution tracking events used to connect
+      TrackNow affiliate identifiers with PostHog sessions.
+      This source is not included in the exercise dataset.
+
+    columns:
+
+      - name: event_id
+        description: "Unique attribution event identifier."
+        tests:
+          - not_null
+          - unique
+
+      - name: event_at
+        description: "Timestamp of the attribution event."
+        tests:
+          - not_null
+
+      - name: affiliate_click_id
+        description: "Persisted TrackNow affiliate click identifier."
+
+      - name: affiliate_session_id
+        description: "Persisted TrackNow affiliate session identifier."
+
+      - name: posthog_session_id
+        description: "PostHog session associated with the event."
+
+      - name: posthog_distinct_id
+        description: "PostHog anonymous user identifier."

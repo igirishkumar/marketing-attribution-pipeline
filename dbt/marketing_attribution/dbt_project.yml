@@ -1,0 +1,22 @@
+name: 'marketing_attribution'
+version: '1.0.0'
+config-version: 2
+
+profile: 'marketing_attribution'
+
+model-paths: ["models"]
+
+models:
+  marketing_attribution:
+    staging:
+      +materialized: view
+
+    intermediate:
+      +materialized: view
+
+    marts:
+      +materialized: table
+
+clean-targets:
+  - "target"
+  - "dbt_packages"

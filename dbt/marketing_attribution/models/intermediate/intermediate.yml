@@ -1,0 +1,68 @@
+version: 2
+
+models:
+
+  - name: int_tracknow_conversions
+    description: "Canonical TrackNow conversion records at one row per order."
+
+    columns:
+
+      - name: tracknow_order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: firm_id
+        tests:
+          - not_null
+
+  - name: int_posthog_attribution
+    description: "Normalized PostHog session attribution data."
+
+    columns:
+
+      - name: posthog_session_id
+        tests:
+          - not_null
+          - unique
+
+      - name: posthog_distinct_id
+        tests:
+          - not_null
+
+  - name: int_conversion_attribution
+    description: "One-row-per-conversion attribution result."
+
+    columns:
+
+      - name: tracknow_order_id
+        tests:
+          - not_null
+          - unique
+
+
+  - name: int_attribution_bridge
+    description: >
+      Normalized first-party attribution bridge connecting TrackNow
+      affiliate identifiers to PostHog sessions. Proposed production model.
+
+    columns:
+
+      - name: event_id
+        tests:
+          - not_null
+
+      - name: match_method
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - exact_click_id
+                  - exact_affiliate_session
+                  - user_fallback
+
+      - name: match_priority
+        tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 99]

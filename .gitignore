@@ -1,0 +1,29 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# dbt generated files
+target/
+dbt_packages/
+logs/
+
+# dbt local configuration
+profiles.yml
+
+# Local DuckDB database
+*.duckdb
+*.duckdb.wal
+
+# Assessment / local data
+data/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+
+  - name: tracknow
+    description: "TrackNow affiliate conversion data."
+    schema: firms_tracknow
+    tables:
+      - name: checkouts
+        description: "Affiliate conversions and commission-bearing orders."
+
+  - name: posthog
+    description: "PostHog web session and marketing attribution data."
+    schema: analytics
+    tables:
+      - name: sessions
+        description: "Paid web sessions with advertising identifiers and UTM data."
+
+  - name: finance
+    description: "Commission data supplied by Finance."
+    schema: raw
+    tables:
+      - name: commission_google_sheet
+        description: "Daily commission data loaded from the Finance Google Sheet."
+
+  - name: firms
+    description: "Reference data for prop firms."
+    schema: airbyte_raw
+    tables:
+      - name: firms
+        description: "Prop firm master data."
+
+      - name: promos
+        description: "Promotion and coupon reference data."
+
+  - name: quickbooks
+    description: "QuickBooks invoice data loaded through Airbyte."
+    schema: airbyte_raw
+    tables:
+      - name: invoices
+        description: "QuickBooks invoice records used for commission reconciliation."
+
+
+  - name: attribution
+    description: >
+      First-party attribution events captured by website instrumentation.
+      This is a proposed production source and is not included in the exercise dataset.
+
+    schema: analytics_tracking
+
+    tables:
+      - name: attribution_events
+        description: >
+          Persists the relationship between the browser/session,
+          TrackNow affiliate identifiers and advertising identifiers.

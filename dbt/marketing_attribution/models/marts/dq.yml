@@ -1,0 +1,34 @@
+version: 2
+
+models:
+
+  - name: f_dq_commission_checks
+    description: >
+      Centralised data-quality results for the commission pipeline.
+
+    columns:
+
+      - name: check_name
+        tests:
+          - not_null
+
+      - name: check_run_at
+        tests:
+          - not_null
+
+      - name: severity
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - P1
+                  - P2
+                  - P3
+
+      - name: status
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - PASS
+                  - FAIL

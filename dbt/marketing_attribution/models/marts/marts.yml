@@ -1,0 +1,67 @@
+version: 2
+
+models:
+
+  - name: f_conversion_attribution
+    description: >
+      Conversion-level attribution fact table containing TrackNow revenue,
+      commission, firm information, PostHog session information and
+      marketing attribution.
+
+    columns:
+
+      - name: tracknow_order_id
+        description: "Unique TrackNow conversion/order ID."
+        tests:
+          - not_null
+          - unique
+
+      - name: firm_id
+        description: "Prop firm identifier."
+        tests:
+          - not_null
+
+      - name: conversion_at
+        description: "TrackNow conversion timestamp."
+
+      - name: channel
+        description: "Normalized acquisition channel."
+
+      - name: utm_campaign
+        description: "Marketing campaign."
+
+      - name: ad_id
+        description: "Advertising creative/ad identifier where available."
+
+      - name: commission_gbp
+        description: "Affiliate commission associated with the conversion."
+
+      - name: attribution_status
+        description: "Whether the conversion was successfully attributed."
+
+      - name: attribution_method
+        description: "Method used to establish attribution."
+
+
+  - name: f_commission_daily
+    description: >
+      Daily firm-level commission mart used for finance reporting
+      and anomaly monitoring.
+
+    columns:
+
+      - name: commission_date
+        description: "Date of the commission record."
+        tests:
+          - not_null
+
+      - name: firm_id
+        description: "Firm identifier."
+        tests:
+          - not_null
+
+      - name: commission_amount
+        description: "Actual commission in GBP."
+
+      - name: sales_amount
+        description: "Total sales value attributed to the affiliate channel."
