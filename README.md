@@ -1,6 +1,9 @@
 # Marketing Attribution & Analytics Pipeline
 
-A portfolio analytics engineering project for turning web-session, affiliate-conversion, finance, and accounting data into trusted business-ready models.
+An end-to-end analytics engineering project that transforms web-session,
+affiliate-conversion, finance, and accounting data into trusted,
+business-ready models for attribution, revenue reporting, reconciliation,
+anomaly detection, and data-quality monitoring.
 
 The project focuses on practical analytics engineering patterns: source standardization, attribution, incremental business logic, reconciliation, anomaly detection, and data-quality monitoring.
 
@@ -24,6 +27,7 @@ The project focuses on practical analytics engineering patterns: source standard
           │              │              │
        TrackNow        PostHog       Finance
           │              │              │
+          |              |          Quickbooks
           └──────────────┼──────────────┘
                          ↓
                     Staging Layer
@@ -159,7 +163,7 @@ contains BigQuery-oriented anomaly detection logic.
 For each firm/day it calculates:
 
 - current daily commission
-- average commission for the previous seven rows/days available in the mart
+- average commission across the previous seven available rows
 - percentage change versus that baseline
 - anomaly status when absolute change exceeds 40%
 - absolute revenue impact
@@ -261,7 +265,7 @@ Some production-style sources were represented by small synthetic local fixtures
 The notebook:
 
 ```text
-notebooks/01_data_exploration_final.ipynb
+notebooks/01_data_exploration.ipynb
 ```
 
 contains exploratory analysis of the source data, including:
@@ -289,7 +293,7 @@ marketing-attribution-pipeline/
 │       └── macros/
 │
 ├── notebooks/
-│   └── 01_data_exploration_final.ipynb
+│   └── 01_data_exploration.ipynb
 │
 └── sql/
     └── commission_anomalies.sql
